@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
 
-private val KeyRows = listOf("ضصثقفغعهخحجچ", "شسیبلاتنمکگ", "ظطزرذدپوآژ")
+private val KeyRows = listOf("ضصثقفغعهخحجچ", "شسیبلاتنمکگ", "ظطزرذدپوآژئء")
 
 fun clock(s: Int) = "${faNum(s / 60)}:${faNum(s % 60).padStart(2, '۰')}"
 
@@ -90,7 +90,7 @@ fun GameScreen(app: App) {
             KeyRows.forEachIndexed { ri, row ->
                 Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), horizontalArrangement = Arrangement.spacedBy(3.dp)) {
                     row.forEach { ch -> Key(app, ch.toString(), Modifier.weight(1f)) { g.type(ch); app.saveGame() } }
-                    if (ri == 2) Key(app, "⌫", Modifier.weight(1.7f)) { g.backspace(); app.saveGame() }
+                    if (ri == 2) Key(app, "⌫", Modifier.weight(1.5f)) { g.backspace(); app.saveGame() }
                 }
             }
             Spacer(Modifier.height(20.dp))

@@ -276,9 +276,9 @@ class App(val ctx: Context, val activity: ComponentActivity) {
 
     // ---------- بازی ----------
     private fun params(diff: Int, level: Int): Triple<Int, Int, Int> = when (diff) {
-        1 -> Triple(7, minOf(5 + level / 10, 7), 4)
-        2 -> Triple(9, minOf(7 + level / 8, 10), 5)
-        else -> Triple(11, minOf(9 + level / 6, 13), 7)
+        1 -> Triple(7, minOf(8 + level / 10, 10), 6)
+        2 -> Triple(9, minOf(12 + level / 8, 15), 9)
+        else -> Triple(11, minOf(15 + level / 6, 18), 11)
     }
 
     fun newGame(diff: Int, level: Int) {

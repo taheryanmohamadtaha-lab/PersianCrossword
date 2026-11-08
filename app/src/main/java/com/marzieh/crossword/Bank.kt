@@ -73,7 +73,7 @@ class Bank(private val ctx: Context) : SQLiteOpenHelper(ctx, "crossword.db", nul
     fun pickPool(diff: Int, rnd: Random): Pair<List<WordEntry>, Boolean> {
         var reset = false
         var avail = all.filter { it.diff == diff && it.id !in usedIds() }
-        if (avail.size < 16) {
+        if (avail.size < 30) {
             resetDiff(diff); reset = true
             avail = all.filter { it.diff == diff }
         }
@@ -81,8 +81,8 @@ class Bank(private val ctx: Context) : SQLiteOpenHelper(ctx, "crossword.db", nul
         val pool = ArrayList<WordEntry>()
         for (e in avail.shuffled(rnd)) {
             val n = counts[e.cat] ?: 0
-            if (n < 6) { counts[e.cat] = n + 1; pool.add(e) }
-            if (pool.size >= 45) break
+            if (n < 9) { counts[e.cat] = n + 1; pool.add(e) }
+            if (pool.size >= 70) break
         }
         return Pair(pool, reset)
     }
