@@ -41,7 +41,7 @@ fun makePal(idx: Int, night: Boolean): Pal {
         card = if (dark) Color(0x44FFFFFF) else Color(0xDDFFFFFF),
         text = if (dark) Color(0xFFF4F4FF) else Color(0xFF2B2B3A),
         cell = if (dark) Color(0xFF2A2F5A) else Color.White,
-        block = if (dark) Color(0x22000000) else Color(0x22000000),
+        block = if (dark) Color(0xEE05060F) else Color(0xDD2B2F45),
         deco = if (idx == 6) emptyList() else t.deco, dark = dark, shape = shape, small = small
     )
 }

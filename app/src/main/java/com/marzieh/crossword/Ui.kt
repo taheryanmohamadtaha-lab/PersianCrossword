@@ -116,8 +116,10 @@ fun Page(app: App, title: String?, onBack: (() -> Unit)?, content: @Composable C
         Column(Modifier.fillMaxSize().padding(14.dp)) {
             if (title != null || onBack != null) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (onBack != null) { Btn(app, "→ بازگشت", compact = true) { onBack() }; Spacer(Modifier.width(10.dp)) }
-                    if (title != null) Text(title, color = p.text, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    if (onBack != null) { Btn(app, "→ بازگشت", compact = true) { onBack() }; Spacer(Modifier.width(8.dp)) }
+                    if (title != null) Text(title, color = p.text, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    else Spacer(Modifier.weight(1f))
+                    if (onBack != null) Btn(app, "🏠 منو", compact = true, color = Color(0xFF78909C)) { app.go(Screen.Home) }
                 }
                 Spacer(Modifier.height(8.dp))
             }

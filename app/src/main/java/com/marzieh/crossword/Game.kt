@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
 
-private val KeyRows = listOf("ضصثقفغعهخحجچ", "شسیبلاتنمکگ", "ظطزرذدپوآژئء")
+private val KeyRows = listOf("ضصثقفغعهخحجچ", "شسیبلاتنمکگ", "ظطزرذدپو")
 
 fun clock(s: Int) = "${faNum(s / 60)}:${faNum(s % 60).padStart(2, '۰')}"
 
@@ -49,6 +49,7 @@ fun GameScreen(app: App) {
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 8.dp, vertical = 10.dp)) {
             // نوار بالا
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Btn(app, "→", compact = true, color = Color(0xFF78909C)) { app.saveGame(); app.go(Screen.Levels) }
                 Btn(app, "⏸", compact = true) { g.paused = true; app.saveGame() }
                 Column(Modifier.weight(1f)) {
                     Text("سطح ${DiffNames[g.diff]} — مرحله ${faNum(g.level)}", color = p.text, fontWeight = FontWeight.Bold, fontSize = 14.sp)
@@ -86,12 +87,18 @@ fun GameScreen(app: App) {
             }
             Text("راهنمای استفاده‌شده: ${faNum(g.hints)} از ${faNum(g.maxHints)}", color = p.text, fontSize = 11.sp, modifier = Modifier.align(Alignment.CenterHorizontally))
             Spacer(Modifier.height(4.dp))
-            // صفحه‌کلید فارسی
+            // صفحه‌کلید فارسی (هم‌ترتیب با صفحه‌کلید استاندارد گوشی)
             KeyRows.forEachIndexed { ri, row ->
-                Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), horizontalArrangement = Arrangement.spacedBy(3.dp)) {
+                Row(Modifier.fillMaxWidth().padding(vertical = 3.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    if (ri == 2) Spacer(Modifier.weight(1f))
                     row.forEach { ch -> Key(app, ch.toString(), Modifier.weight(1f)) { g.type(ch); app.saveGame() } }
-                    if (ri == 2) Key(app, "⌫", Modifier.weight(1.5f)) { g.backspace(); app.saveGame() }
+                    if (ri == 2) Key(app, "⌫", Modifier.weight(3f)) { g.backspace(); app.saveGame() }
                 }
+            }
+            Row(Modifier.fillMaxWidth().padding(vertical = 3.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Spacer(Modifier.weight(4f))
+                listOf('آ', 'ژ', 'ئ', 'ء').forEach { ch -> Key(app, ch.toString(), Modifier.weight(1f)) { g.type(ch); app.saveGame() } }
+                Spacer(Modifier.weight(4f))
             }
             Spacer(Modifier.height(20.dp))
         }
@@ -106,9 +113,9 @@ fun GameScreen(app: App) {
 fun Key(app: App, label: String, modifier: Modifier, onClick: () -> Unit) {
     val p = app.pal
     Box(
-        modifier.height(44.dp).clip(p.small).background(p.cell).clickable { app.audio.sfx(Sfx.Click); onClick() },
+        modifier.height(54.dp).clip(p.small).background(p.cell).clickable { app.audio.sfx(Sfx.Click); onClick() },
         contentAlignment = Alignment.Center
-    ) { Text(label, color = p.text, fontSize = 18.sp, fontWeight = FontWeight.Bold) }
+    ) { Text(label, color = p.text, fontSize = 23.sp, fontWeight = FontWeight.Bold) }
 }
 
 @Composable
